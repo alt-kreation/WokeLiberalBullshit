@@ -13,6 +13,12 @@
       "source": "embedded",
       "dependencies": {}
     },
+    "com.unity.2d.sprite": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {}
+    },
     "com.unity.burst": {
       "version": "1.8.28",
       "depth": 2,
@@ -168,6 +174,20 @@
       "dependencies": {
         "com.unity.modules.ui": "1.0.0",
         "com.unity.modules.imgui": "1.0.0"
+      }
+    },
+    "dev.yarnspinner.unity": {
+      "version": "file:dev.yarnspinner.unity",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
+    "dev.yarnspinner.unity.addons.textanimator": {
+      "version": "file:dev.yarnspinner.unity.addons.textanimator",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {
+        "dev.yarnspinner.unity": "3.1.0"
       }
     },
     "com.unity.modules.accessibility": {
