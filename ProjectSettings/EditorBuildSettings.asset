@@ -9,5 +9,6 @@ EditorBuildSettings:
     path: Assets/Plugins/AllIn1SpriteShader/Demo/Demo.unity
     guid: aa7236836849adb4285d82814f472ea5
   m_configObjects:
+    com.unity.addressableassets: {fileID: 11400000, guid: 4e53e984cfb7b904f91bf6e7bdafeace, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

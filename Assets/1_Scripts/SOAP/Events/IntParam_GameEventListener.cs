@@ -1,0 +1,1 @@
+public class IntParam_GameEventListener : GameEventListener<int> {}
