@@ -6,7 +6,6 @@ public static class DatabaseGetter
 {
 #if UNITY_EDITOR
 	public static CharacterNamesDatabase CharacterNamesData => GetDatabase<CharacterNamesDatabase>();
-	public static MoveAnimationNameDatabase MoveAnimationNameData => GetDatabase<MoveAnimationNameDatabase>();
 	public static YarnNodeNameDatabase YarnNodeNamesData => GetDatabase<YarnNodeNameDatabase>();
 
 	private static T GetDatabase<T>() where T : ScriptableObject
