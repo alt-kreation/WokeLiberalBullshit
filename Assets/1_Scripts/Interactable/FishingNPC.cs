@@ -81,7 +81,7 @@ namespace FishingIsland
                 // if a typewriter effect is going, show the rest of the text with a button press instead of progressing
                 if (FishDialogueHandler.Instance.IsShowingText)
                 {
-                    FishDialogueHandler.Instance.ActiveLinePresenter.Typewriter.SetTypewriterSpeed(150f);
+                    FishDialogueHandler.Instance.ActiveLinePresenter.FebucciTypewriter.SetTypewriterSpeed(150f);
                     return;
                 }
                 
@@ -111,7 +111,7 @@ namespace FishingIsland
             
             if (Personality.UseTypeWriter && Personality.Voice != null)
             {
-                FishDialogueHandler.Instance.ActiveLinePresenter.Typewriter.SetTypewriterSpeed(Personality.Voice.SpeedMultiplier);
+                FishDialogueHandler.Instance.ActiveLinePresenter.FebucciTypewriter.SetTypewriterSpeed(Personality.Voice.SpeedMultiplier);
             }
                 
             if (!Personality.UseTypeWriter && Personality.InteractSFX != null && Personality.UseInteractSFXOnAdvance)

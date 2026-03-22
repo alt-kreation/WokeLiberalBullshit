@@ -8,10 +8,9 @@ using Yarn.Unity;
 using Yarn.Unity.Attributes;
 using TMPro;
 using DG.Tweening;
-using Febucci.UI.Core;
+using Febucci.TextAnimatorForUnity;
 using Febucci.UI.Examples;
 using FishingIsland;
-using Yarn.Unity.Legacy;
 
 #nullable enable
 
@@ -29,7 +28,7 @@ public class VoidLinePresenter : DialoguePresenterBase
     [field: SerializeField] public LinePresenterType Type { get; private set; }
     [field: Header("Typewriter and VoiceData")]
     [field: Tooltip("Typewriter must be public to access events, IsShowingText, etc")]
-    [field: SerializeField] public TypewriterCore Typewriter { get; private set; }
+    [field: SerializeField] public TypewriterComponent FebucciTypewriter { get; private set; }
     [SerializeField] private TAnimSoundWriter _soundwriter;
     [SerializeField] private TextMeshProUGUI _dialogueTMP;
     [Space]
@@ -49,15 +48,16 @@ public class VoidLinePresenter : DialoguePresenterBase
 
         if (personality.UseTypeWriter)
         {
-            Typewriter.resetTypingSpeedAtStartup = true;
-            Typewriter.SetTypewriterSpeed(personality.Voice.SpeedMultiplier);
+            // AK_TODO couldn't move this over from Febucci 2,0
+            // Typewriter.resetTypingSpeedAtStartup = true;
+            FebucciTypewriter.SetTypewriterSpeed(personality.Voice.SpeedMultiplier);
             _soundwriter.ApplyVoiceData(personality.Voice);
         }
 
         else
         {
-            Typewriter.resetTypingSpeedAtStartup = false;
-            Typewriter.SetTypewriterSpeed(100f);
+            // Typewriter.resetTypingSpeedAtStartup = false;
+            FebucciTypewriter.SetTypewriterSpeed(150f);
             _soundwriter.ApplyVoiceData(null);
         }
     }
@@ -65,8 +65,8 @@ public class VoidLinePresenter : DialoguePresenterBase
     public void ResetPersonalityParameters()
     {
         _dialogueTMP.font = _cachedDefaultFont;
-        Typewriter.SetTypewriterSpeed(100f);
-        Typewriter.TextAnimator.SetText(String.Empty);
+        FebucciTypewriter.SetTypewriterSpeed(150f);
+        FebucciTypewriter.TextAnimator.SetText(String.Empty);
         _soundwriter.ApplyVoiceData(null);
     }
 
@@ -293,15 +293,6 @@ public class VoidLinePresenter : DialoguePresenterBase
     /// </summary>
     private void Awake()
     {
-        if (useTypewriterEffect)
-        {
-            // need to add a pause handler also
-            // and add it to the front of the list
-            // that way it always happens first
-            var pauser = new PauseEventProcessor();
-            ActionMarkupHandlers.Insert(0, pauser);
-        }
-
         if (characterNameContainer == null && characterNameText != null)
         {
             characterNameContainer = characterNameText.gameObject;
@@ -318,9 +309,6 @@ public class VoidLinePresenter : DialoguePresenterBase
         yield return new WaitUntil(() => FishDialogueHandler.Instance != null);
         _dialogueService = FishDialogueHandler.Instance;
         _dialogueService.OnDialogueProgressed += HandleProgressFeedback;
-        
-        // we add all the monobehaviour handlers into the shared list
-        ActionMarkupHandlers.AddRange(eventHandlers);
     }
 
     private void OnDisable()
@@ -378,22 +366,9 @@ public class VoidLinePresenter : DialoguePresenterBase
             text = line.TextWithoutCharacterName;
         }
         lineText.text = text.Text;
-
-        // the typewriter requires all characters to be hidden at the start so they can be shown one at a time
-        if (useTypewriterEffect)
-        {
-            lineText.maxVisibleCharacters = 0;
-            // letting every temporal processor know that fade up (if set) is about to begin
-            foreach (var processor in ActionMarkupHandlers)
-            {
-                processor.OnPrepareForLine(text, lineText);
-            }
-        }
-        else
-        {
-            lineText.maxVisibleCharacters = text.Text.Length;
-        }
-
+        
+        lineText.maxVisibleCharacters = text.Text.Length;
+        
         if (canvasGroup != null)
         {
             // fading up the UI
@@ -408,18 +383,6 @@ public class VoidLinePresenter : DialoguePresenterBase
             }
         }
 
-        if (useTypewriterEffect)
-        {
-            var typewriter = new BasicTypewriter()
-            {
-                ActionMarkupHandlers = this.ActionMarkupHandlers,
-                Text = this.lineText,
-                CharactersPerSecond = this.typewriterEffectSpeed,
-            };
-
-            await typewriter.RunTypewriter(text, token.HurryUpToken);
-        }
-
         // if we are set to autoadvance how long do we hold for before continuing?
         if (autoAdvance)
         {
@@ -428,12 +391,6 @@ public class VoidLinePresenter : DialoguePresenterBase
         else
         {
             await YarnTask.WaitUntilCanceled(token.NextLineToken).SuppressCancellationThrow();
-        }
-
-        // we tell all action processors that the line is finished and is about to go away
-        foreach (var processor in ActionMarkupHandlers)
-        {
-            processor.OnLineWillDismiss();
         }
 
         if (canvasGroup != null)

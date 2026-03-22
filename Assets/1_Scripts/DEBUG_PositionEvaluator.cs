@@ -24,7 +24,7 @@ namespace FishingIsland
 			{
 				if (_excludedTransforms.Contains(foundTransform)) continue;
 				
-				if (!Utils.CheckIfNumDivisibleBy(foundTransform.position.x, _shouldBeDivisibleBy) || !Utils.CheckIfNumDivisibleBy(foundTransform.position.y, _shouldBeDivisibleBy))
+				if (!Utils2D.CheckIfNumDivisibleBy(foundTransform.position.x, _shouldBeDivisibleBy) || !Utils2D.CheckIfNumDivisibleBy(foundTransform.position.y, _shouldBeDivisibleBy))
 				{
 					Debug.LogWarning($"Object '{foundTransform.name}' has invalid position: {foundTransform.position}");
 					invalidPositionsCount++;
@@ -54,7 +54,7 @@ namespace FishingIsland
 			{
 				if (_excludedTransforms.Contains(foundTransform)) continue;
 				
-				if (!Utils.CheckIfNumDivisibleBy(foundTransform.position.x, _shouldBeDivisibleBy))
+				if (!Utils2D.CheckIfNumDivisibleBy(foundTransform.position.x, _shouldBeDivisibleBy))
 				{
 					Vector3 currentPos = foundTransform.position;
 					float snappedX = Mathf.Round(currentPos.x / _shouldBeDivisibleBy/100) * _shouldBeDivisibleBy/100;

@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Yarn.Unity;
@@ -13,7 +12,7 @@ namespace FishingIsland
         public event Action OnDialogueProgressed;
         public event Action OnDialogueComplete;
         public VoidLinePresenter ActiveLinePresenter => GetActivePresenter();
-        public bool IsShowingText => GetActivePresenter().Typewriter.isShowingText;
+        public bool IsShowingText => GetActivePresenter().FebucciTypewriter.IsShowingText;
         public bool IsDialogueRunning => _dialogueRunner.IsDialogueRunning;
         public bool IsTransitioning => CheckIfTransitioning();
         
@@ -28,9 +27,9 @@ namespace FishingIsland
 
         private VoidLinePresenter GetActivePresenter()
         {
-            for (int i = 0; i < _dialogueRunner.dialoguePresenters.Count; i++)
+            foreach (var dialoguePresenter in _dialogueRunner.DialoguePresenters)
             {
-                if (_dialogueRunner.dialoguePresenters[i] is VoidLinePresenter presenter && presenter.gameObject.activeInHierarchy)
+                if (dialoguePresenter is VoidLinePresenter presenter && presenter.gameObject.activeInHierarchy)
                 {
                     return presenter;
                 }
@@ -57,17 +56,15 @@ namespace FishingIsland
             // reset this just in case
             SetCustomAutoAdvance(false);
 
-            for (int i = 0; i < _dialogueRunner.DialoguePresenters.Count(); i++)
+            foreach (var dialoguePresenter in _dialogueRunner.DialoguePresenters)
             {
-                if (_dialogueRunner.dialoguePresenters[i] is VoidLinePresenter presenter &&
-                    presenter.Type == type)
+                if (dialoguePresenter is VoidLinePresenter presenter && presenter.Type == type)
                 {
                     presenter.gameObject.SetActive(true);
                 }
-
                 else
                 {
-                    _dialogueRunner.dialoguePresenters[i]?.gameObject.SetActive(false);
+                    dialoguePresenter?.gameObject.SetActive(false);
                 }
             }
         }
@@ -97,7 +94,7 @@ namespace FishingIsland
         public void RequestNextLine()
         {
             // clear text so can't see it when transitioning
-            ActiveLinePresenter.Typewriter.TextAnimator.SetText(String.Empty);
+            ActiveLinePresenter.FebucciTypewriter.TextAnimator.SetText(String.Empty);
             
             OnDialogueProgressed?.Invoke();
             _dialogueRunner.RequestNextLine();
@@ -124,7 +121,7 @@ namespace FishingIsland
 
             if (IsAutoAdvancing)
             {
-                ActiveLinePresenter.Typewriter.onTextShowed.RemoveListener(RequestNextLine);
+                ActiveLinePresenter.FebucciTypewriter.onTextShowed.RemoveListener(RequestNextLine);
                 IsAutoAdvancing = false;
             }
             
@@ -140,9 +137,9 @@ namespace FishingIsland
             }
             
             bool isLinePresenterAnimating = false;
-            for (int i = 0; i < _dialogueRunner.dialoguePresenters.Count; i++)
+            foreach (var dialoguePresenter in _dialogueRunner.DialoguePresenters)
             {
-                if (_dialogueRunner.dialoguePresenters[i] is VoidLinePresenter presenter && presenter.IsAnimating())
+                if (dialoguePresenter is VoidLinePresenter presenter && presenter.IsAnimating())
                 {
                     isLinePresenterAnimating = true;
                 }
@@ -168,12 +165,12 @@ namespace FishingIsland
             
             if (IsAutoAdvancing)
             {
-                ActiveLinePresenter.Typewriter.onTextShowed.AddListener(RequestNextLine);
+                ActiveLinePresenter.FebucciTypewriter.onTextShowed.AddListener(RequestNextLine);
             }
 
             else
             {
-                ActiveLinePresenter.Typewriter.onTextShowed.RemoveListener(RequestNextLine);
+                ActiveLinePresenter.FebucciTypewriter.onTextShowed.RemoveListener(RequestNextLine);
             }
         }
     }

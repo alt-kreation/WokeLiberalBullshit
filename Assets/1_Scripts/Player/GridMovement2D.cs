@@ -133,17 +133,17 @@ namespace FishingIsland
 		{
 			_moveTween = null; 
 			
-			if (Utils.CheckIfNumDivisibleBy(_transform.position.x, 16) && Utils.CheckIfNumDivisibleBy(_transform.position.y, 16)) return;
+			if (Utils2D.CheckIfNumDivisibleBy(_transform.position.x, 16) && Utils2D.CheckIfNumDivisibleBy(_transform.position.y, 16)) return;
 
 			Vector2 correctedPos = _transform.position;
-			if (!Utils.CheckIfNumDivisibleBy(_transform.position.x, 16))
+			if (!Utils2D.CheckIfNumDivisibleBy(_transform.position.x, 16))
 			{
-				correctedPos.x = Utils.GetNearestNumberDivisibleBy(_transform.position.x, 0.16f);
+				correctedPos.x = Utils2D.GetNearestNumberDivisibleBy(_transform.position.x, 0.16f);
 			}
 
-			if (!Utils.CheckIfNumDivisibleBy(_transform.position.y, 16))
+			if (!Utils2D.CheckIfNumDivisibleBy(_transform.position.y, 16))
 			{
-				correctedPos.y = Utils.GetNearestNumberDivisibleBy(_transform.position.y, 0.16f);
+				correctedPos.y = Utils2D.GetNearestNumberDivisibleBy(_transform.position.y, 0.16f);
 			}
 
 			_transform.position = correctedPos;

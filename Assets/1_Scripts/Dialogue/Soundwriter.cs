@@ -1,4 +1,6 @@
 using System.Collections;
+using Febucci.TextAnimatorCore.Text;
+using Febucci.TextAnimatorForUnity;
 using UnityEngine;
 using UnityEngine.Assertions;
 using Random = UnityEngine.Random;
@@ -8,8 +10,7 @@ namespace Febucci.UI.Examples
     /// <summary>
     /// Based on the example class from Febucci to add sounds TextAnimators using typewriters
     /// </summary>
-    [AddComponentMenu("Febucci/TextAnimator/SoundWriter")]
-    [RequireComponent(typeof(Core.TypewriterCore))]
+    [RequireComponent(typeof(TypewriterComponent))]
     public class TAnimSoundWriter : MonoBehaviour
     {
         [Header("References")]
@@ -50,7 +51,9 @@ namespace Febucci.UI.Examples
             while (elapsedTime < _soundTestDuration)
             {
                 elapsedTime += Time.deltaTime;
-                OnCharacter('i');
+                CharacterData charData = new CharacterData();
+                charData.info.character = 'i';
+                OnCharacter(charData);
 
                 yield return null;
             }
@@ -70,7 +73,7 @@ namespace Febucci.UI.Examples
         {
             Assert.IsNotNull(Source, "TAnimSoundWriter: Typewriter Audio Source reference is null");
             Assert.IsNotNull(DefaultVoiceData, "No default voice set!!");
-            Assert.IsNotNull(GetComponent<Core.TypewriterCore>(), "TAnimSoundWriter: Component TAnimPlayerBase is not present");
+            Assert.IsNotNull(GetComponent<TypewriterComponent>(), "TAnimSoundWriter: Component TAnimPlayerBase is not present");
         }
 
         private void Initialize()
@@ -84,7 +87,7 @@ namespace Febucci.UI.Examples
             Source.playOnAwake = false;
             Source.loop = false;
 
-            GetComponent<Core.TypewriterCore>()?.onCharacterVisible.AddListener(OnCharacter);
+            GetComponent<TypewriterComponent>()?.onCharacterVisible.AddListener(OnCharacter);
         }
 
         public void ApplyVoiceData(VoiceData voice)
@@ -98,11 +101,11 @@ namespace Febucci.UI.Examples
             _clipIndex = _activeVoice.PlayInRandomOrder ? Random.Range(0, _activeVoice.VocalSounds.Length) : 0;
         }
 
-        void OnCharacter(char character)
+        void OnCharacter(CharacterData charData)
         {
             if (!_activeVoice) return;
             
-            if (character == '.' || char.IsWhiteSpace(character))
+            if (charData.info.character == '.' || char.IsWhiteSpace(charData.info.character))
                 return;
 
             if (Time.time - _latestTimePlayed <= _activeVoice.MinSoundDelay)
