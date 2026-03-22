@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 public static class InputHandler
 {
-	private static bool DEBUG_MODE = true;
+	private static bool DEBUG_MODE = false;
 
 	public static event Action OnActiveActionMapsChanged;
 	public static Controls ActionAsset { get; private set; }

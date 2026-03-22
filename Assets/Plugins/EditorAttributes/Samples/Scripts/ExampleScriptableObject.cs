@@ -5,7 +5,7 @@ using Void = EditorAttributes.Void;
 
 namespace EditorAttributesSamples
 {
-	[CreateAssetMenu(fileName = "ExampleScriptableObject", menuName = "ScriptableObjects/ExampleScriptableObject")]
+	//[CreateAssetMenu(fileName = "ExampleScriptableObject", menuName = "ScriptableObjects/ExampleScriptableObject")]
 	public class ExampleScriptableObject : ScriptableObject
 	{
 		public enum Season { Winter, Spring, Summer, Fall }

@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 489dd74d2b4e1e1419c2ba1c57bca809, type: 3}
+  m_Name: TopDownDefault_VoiceData
+  m_EditorClassIdentifier: Assembly-CSharp::VoiceData
+  <Volume>k__BackingField: 0.75
+  <Pitch>k__BackingField: 1
+  <SpeedMultiplier>k__BackingField: 1
+  <VocalSounds>k__BackingField:
+  - {fileID: 8300000, guid: 23253eacf622d0943b6752cca70fc9b4, type: 3}
+  - {fileID: 8300000, guid: b8021da061b4c6d489a3e72435a85f2f, type: 3}
+  - {fileID: 8300000, guid: 0cea1c7de57a305419bc81ad99f1e111, type: 3}
+  - {fileID: 8300000, guid: bf97c18a9c0dda74baf9f8c2aa05bcdb, type: 3}
+  - {fileID: 8300000, guid: 6f02ea9d999a3ad409e4ad2b7e3708bb, type: 3}
+  - {fileID: 8300000, guid: d800c4c5fca609d4791ab4db8ef17c4c, type: 3}
+  - {fileID: 8300000, guid: 190dcda76ff795f4f975358d13f07e20, type: 3}
+  - {fileID: 8300000, guid: 20b4d66c0f045864492032ae762043cc, type: 3}
+  - {fileID: 8300000, guid: 316f8dc311f21b243b79682677387ab7, type: 3}
+  - {fileID: 8300000, guid: 8c9619faf6accb248b41f723e06e29a3, type: 3}
+  <PlayInRandomOrder>k__BackingField: 1
+  <InterruptPreviousSound>k__BackingField: 1
+  <MinSoundDelay>k__BackingField: 0.15

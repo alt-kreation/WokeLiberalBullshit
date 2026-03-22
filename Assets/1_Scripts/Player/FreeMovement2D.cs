@@ -3,20 +3,25 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class FreeMovement2D : MonoBehaviour
 {
-	[SerializeField] private float _moveSpeed = 5f;
+	// NOTE TO SELF : use a CircleCollider2D instead of a BoxCollider2D for this
+	// also set Pixel Perfect Camera Grid Snapping to none if the camera is childed
+	
+	[SerializeField] private float _moveSpeed = 1f;
 	[SerializeField] private Transform _gfx;
 
 	private Rigidbody2D _rb;      
 	private Vector2 _movement;
 
-	private void OnValidate()
-	{
-		GetComponent<Rigidbody2D>().gravityScale = 0;
-	}
-
 	private void Start()
 	{
+		Initialization();
+	}
+	
+	private void Initialization()
+	{
 		_rb = GetComponent<Rigidbody2D>();
+		_rb.gravityScale = 0;
+		_rb.bodyType = RigidbodyType2D.Dynamic;
 	}
 
 	private void FixedUpdate()
@@ -26,8 +31,7 @@ public class FreeMovement2D : MonoBehaviour
 
 	private void Movement()
 	{
-		_movement.x = Input.GetAxisRaw("Horizontal");
-		_movement.y = Input.GetAxisRaw("Vertical");
+		_movement = InputHandler.ActionAsset.Overworld.Move.ReadValue<Vector2>();
 	
 		RotateGFX();
 		ApplyMovement();
@@ -44,6 +48,6 @@ public class FreeMovement2D : MonoBehaviour
 	private void ApplyMovement()
 	{
 		_movement = _movement.normalized;
-		_rb.linearVelocity = _movement * (_moveSpeed * Time.deltaTime);
+		_rb.linearVelocity = _movement * _moveSpeed;
 	}
 }
