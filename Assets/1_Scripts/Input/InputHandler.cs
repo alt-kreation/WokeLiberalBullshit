@@ -5,16 +5,16 @@ using UnityEngine.InputSystem;
 
 public static class InputHandler
 {
-	private static bool DEBUG_MODE = false;
+	private static bool DEBUG_MODE = true;
 
 	public static event Action OnActiveActionMapsChanged;
-	public static FishingIsland_Controls ActionAsset { get; private set; }
+	public static Controls ActionAsset { get; private set; }
 	public static HashSet<InputActionMap> ActiveActionMaps { get; private set; } = new HashSet<InputActionMap>();
 	
 	[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
 	private static void Initialize()
 	{
-		ActionAsset = new FishingIsland_Controls();
+		ActionAsset = new Controls();
 		ActionAsset.Disable();
 	}
 	
