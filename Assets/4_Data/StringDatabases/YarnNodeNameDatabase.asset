@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebec226083dc0cf4a8b56ec60710662d, type: 3}
+  m_Name: YarnNodeNameDatabase
+  m_EditorClassIdentifier: Assembly-CSharp::YarnNodeNameDatabase
+  _yarnProject: {fileID: 7545569452688597077, guid: 62e6094afb78f084fb99670461958c47, type: 3}
+  <NodeNames>k__BackingField:
+  - Test
+  - Test/1

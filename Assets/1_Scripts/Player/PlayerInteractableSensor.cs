@@ -1,5 +1,4 @@
 using System;
-using FishingIsland;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -20,7 +19,7 @@ public class PlayerInteractableSensor : MonoBehaviour
 		PlayerTriggerSensor.OnPlayerTriggerEnter += HandlePlayerTriggerEnter;
 		PlayerTriggerSensor.OnPlayerTriggerExit += HandlePlayerTriggerExit;
 
-		InputHandler.FishingActions.Overworld.Interact.performed += HandleInteract;
+		InputHandler.ActionAsset.Overworld.Interact.performed += HandleInteract;
 	}
 
 	private void OnDisable()
@@ -28,7 +27,7 @@ public class PlayerInteractableSensor : MonoBehaviour
 		PlayerTriggerSensor.OnPlayerTriggerEnter -= HandlePlayerTriggerEnter;
 		PlayerTriggerSensor.OnPlayerTriggerExit -= HandlePlayerTriggerExit;
 		
-		InputHandler.FishingActions.Overworld.Interact.performed -= HandleInteract;
+		InputHandler.ActionAsset.Overworld.Interact.performed -= HandleInteract;
 	}
 
 	protected virtual void HandleInteract(InputAction.CallbackContext input)

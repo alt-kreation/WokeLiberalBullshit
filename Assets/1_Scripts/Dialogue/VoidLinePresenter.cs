@@ -10,14 +10,13 @@ using TMPro;
 using DG.Tweening;
 using Febucci.TextAnimatorForUnity;
 using Febucci.UI.Examples;
-using FishingIsland;
 
 #nullable enable
 
 public enum LinePresenterType
 {
-    FishingOverworld,
-    FishingBattle
+    Overworld,
+    Battle
 }
 
 //This is a direct copy of the default LinePresenter with added functionality for placing the dialogueUI in the correct NPC position
@@ -261,7 +260,7 @@ public class VoidLinePresenter : DialoguePresenterBase
     [SerializeField] private DOTweenAnimation? _progressAnimation;
 
     //Services
-    private FishDialogueHandler? _dialogueService;
+    private DialogueHandler? _dialogueService;
 
 
     /// <inheritdoc/>
@@ -306,8 +305,8 @@ public class VoidLinePresenter : DialoguePresenterBase
 
     private IEnumerator Start()
     {
-        yield return new WaitUntil(() => FishDialogueHandler.Instance != null);
-        _dialogueService = FishDialogueHandler.Instance;
+        yield return new WaitUntil(() => DialogueHandler.Instance != null);
+        _dialogueService = DialogueHandler.Instance;
         _dialogueService.OnDialogueProgressed += HandleProgressFeedback;
     }
 

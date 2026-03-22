@@ -19,7 +19,6 @@ namespace Febucci.UI.Examples
     [RequireComponent(typeof(TypewriterComponent))]
     public class TAnimSoundWriter : MonoBehaviour
     {
-
         [Header("References")]
         public AudioSource source;
 
